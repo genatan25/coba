@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tebak Angka Seru</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #ffffff;
+      }
+      .game-container {
+        text-align: center;
+        background-color: rgba(255, 255, 255, 0.1);
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        width: 400px;
+        backdrop-filter: blur(10px);
+      }
+      .btn {
+        padding: 12px 25px;
+        font-size: 16px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin: 10px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      .btn:hover {
+        transform: scale(1.05);
+        background-color: #45a049;
+      }
+      .btn:disabled {
+        background-color: #cccccc;
+        cursor: not-allowed;
+      }
+      input[type="number"] {
+        padding: 12px;
+        font-size: 18px;
+        border-radius: 8px;
+        border: 2px solid #4caf50;
+        margin-top: 15px;
+        width: 200px;
+        text-align: center;
+      }
+      .message {
+        margin-top: 20px;
+        font-size: 20px;
+        font-weight: bold;
+      }
+      .score {
+        font-size: 24px;
+        color: #ffeb3b;
+      }
+      .difficulty-btn {
+        background-color: #2196f3;
+      }
+      .difficulty-btn:hover {
+        background-color: #1976d2;
+      }
+      #highScore {
+        margin-top: 10px;
+        font-size: 18px;
+        color: #ffeb3b;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="game-container">
+      <h1 class="animate__animated animate__bounce">🎲 Tebak Angka Seru 🎲</h1>
+      <p>Tantang dirimu! Tebak angka tersembunyi secepat mungkin!</p>
+
+      <div id="difficultySelection">
+        <button class="btn difficulty-btn" id="easyBtn">Mudah (1-50)</button>
+        <button class="btn difficulty-btn" id="mediumBtn">
+          Sedang (1-100)
+        </button>
+        <button class="btn difficulty-btn" id="hardBtn">Sulit (1-500)</button>
+      </div>
+
+      <div id="gameArea" style="display: none">
+        <input type="number" id="guessInput" placeholder="Masukkan angka" />
+        <button class="btn" id="submitBtn">Tebak</button>
+        <div id="feedback" class="message animate__animated"></div>
+        <div id="score" class="score"></div>
+        <div id="timer" class="message"></div>
+        <div id="highScore"></div>
+        <button class="btn" id="resetBtn" style="display: none">
+          Main Lagi
+        </button>
+      </div>
+    </div>
+
+    <script>
+      let targetNumber;
+      let maxNumber;
+      let score = 0;
+      let attempts = 0;
+      let timeLimit;
+      let timer;
+      let isGameOver = false;
+      let highScore = localStorage.getItem("numberGuessHighScore") || 0;
+
+      const difficultyButtons = [
+        { btn: "easyBtn", max: 50, time: 60 },
+        { btn: "mediumBtn", max: 100, time: 60 },
+        { btn: "hardBtn", max: 500, time: 60 },
+      ];
+
+      difficultyButtons.forEach((difficulty) => {
+        document
+          .getElementById(difficulty.btn)
+          .addEventListener("click", () =>
+            startGame(difficulty.max, difficulty.time)
+          );
+      });
+
+      function startGame(max, time) {
+        maxNumber = max;
+        timeLimit = time;
+        attempts = 0;
+        isGameOver = false;
+        targetNumber = Math.floor(Math.random() * max) + 1;
+
+        document.getElementById("difficultySelection").style.display = "none";
+        document.getElementById("gameArea").style.display = "block";
+        document.getElementById("feedback").textContent = "";
+        document.getElementById("submitBtn").disabled = false;
+        document.getElementById("guessInput").disabled = false;
+        document.getElementById("guessInput").value = "";
+        document.getElementById("resetBtn").style.display = "none";
+
+        score = 0;
+        document.getElementById("score").textContent = `Skor: ${score}`;
+        document.getElementById("timer").textContent = `Waktu: ${timeLimit}s`;
+        document.getElementById(
+          "highScore"
+        ).textContent = `Skor Tertinggi: ${highScore}`;
+
+        startTimer();
+      }
+
+      function startTimer() {
+        clearInterval(timer);
+        timer = setInterval(() => {
+          timeLimit--;
+          document.getElementById("timer").textContent = `Waktu: ${timeLimit}s`;
+          if (timeLimit <= 0) {
+            endGame();
+          }
+        }, 1000);
+      }
+
+      document.getElementById("submitBtn").addEventListener("click", () => {
+        if (isGameOver) return;
+
+        const userGuess = parseInt(document.getElementById("guessInput").value);
+        const feedbackEl = document.getElementById("feedback");
+
+        if (isNaN(userGuess) || userGuess < 1 || userGuess > maxNumber) {
+          feedbackEl.textContent = `Masukkan angka antara 1 dan ${maxNumber}!`;
+          feedbackEl.classList.add("animate__shakeX");
+          setTimeout(
+            () => feedbackEl.classList.remove("animate__shakeX"),
+            1000
+          );
+          return;
+        }
+
+        attempts++;
+        if (userGuess === targetNumber) {
+          score += 10 + timeLimit * 2;
+          if (score > highScore) {
+            highScore = score;
+            localStorage.setItem("numberGuessHighScore", highScore);
+          }
+          feedbackEl.textContent = `🎉 Selamat! Tebakanmu benar! 🎉`;
+          feedbackEl.classList.add("animate__tada");
+          document.getElementById("score").textContent = `Skor: ${score}`;
+          endGame();
+        } else if (userGuess < targetNumber) {
+          feedbackEl.textContent = `📈 Tebakanmu terlalu rendah. Coba lagi!`;
+          feedbackEl.classList.remove("animate__tada");
+          feedbackEl.classList.add("animate__shakeX");
+          setTimeout(
+            () => feedbackEl.classList.remove("animate__shakeX"),
+            1000
+          );
+        } else {
+          feedbackEl.textContent = `📉 Tebakanmu terlalu tinggi. Coba lagi!`;
+          feedbackEl.classList.remove("animate__tada");
+          feedbackEl.classList.add("animate__shakeX");
+          setTimeout(
+            () => feedbackEl.classList.remove("animate__shakeX"),
+            1000
+          );
+        }
+      });
+
+      document.getElementById("resetBtn").addEventListener("click", () => {
+        document.getElementById("difficultySelection").style.display = "block";
+        document.getElementById("gameArea").style.display = "none";
+      });
+
+      function endGame() {
+        clearInterval(timer);
+        isGameOver = true;
+        const feedbackEl = document.getElementById("feedback");
+        feedbackEl.textContent += ` Game Over! Angka yang benar adalah ${targetNumber}.`;
+        document.getElementById("submitBtn").disabled = true;
+        document.getElementById("guessInput").disabled = true;
+        document.getElementById(
+          "highScore"
+        ).textContent = `Skor Tertinggi: ${highScore}`;
+        document.getElementById("resetBtn").style.display = "inline-block";
+      }
+    </script>
+  </body>
+</html>

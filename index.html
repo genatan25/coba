@@ -3,231 +3,142 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tebak Angka Seru</title>
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-      rel="stylesheet"
-    />
+    <title>Global Boiling - Beranda</title>
     <style>
       body {
-        font-family: "Arial", sans-serif;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f5f5f5;
+        color: #333;
+      }
+      header {
+        background-color: #ff6f61;
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+      }
+      nav {
         display: flex;
         justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: #ffffff;
+        background-color: #ff4f3a;
+        padding: 10px 0;
       }
-      .game-container {
-        text-align: center;
-        background-color: rgba(255, 255, 255, 0.1);
-        padding: 40px;
-        border-radius: 15px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        width: 400px;
-        backdrop-filter: blur(10px);
-      }
-      .btn {
-        padding: 12px 25px;
-        font-size: 16px;
-        background-color: #4caf50;
+      nav a {
         color: white;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        margin: 10px;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin: 0 15px;
+        text-decoration: none;
+        font-size: 16px;
       }
-      .btn:hover {
-        transform: scale(1.05);
-        background-color: #45a049;
+      nav a:hover {
+        text-decoration: underline;
       }
-      .btn:disabled {
-        background-color: #cccccc;
-        cursor: not-allowed;
+      .container {
+        padding: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
       }
-      input[type="number"] {
-        padding: 12px;
-        font-size: 18px;
-        border-radius: 8px;
-        border: 2px solid #4caf50;
-        margin-top: 15px;
-        width: 200px;
+      .hero {
         text-align: center;
+        padding: 50px 20px;
+        background: linear-gradient(to right, #ff6f61, #ffab81);
+        color: white;
       }
-      .message {
-        margin-top: 20px;
-        font-size: 20px;
-        font-weight: bold;
+      .hero h1 {
+        font-size: 3rem;
+        margin: 0;
       }
-      .score {
-        font-size: 24px;
-        color: #ffeb3b;
+      .hero p {
+        font-size: 1.2rem;
+        margin: 10px 0 20px;
       }
-      .difficulty-btn {
-        background-color: #2196f3;
+      .buttons {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
       }
-      .difficulty-btn:hover {
-        background-color: #1976d2;
+      .buttons a {
+        padding: 15px 30px;
+        background-color: #333;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 16px;
       }
-      #highScore {
-        margin-top: 10px;
-        font-size: 18px;
-        color: #ffeb3b;
+      .buttons a:hover {
+        background-color: #555;
+      }
+      .statistics {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 40px;
+      }
+      .statistic {
+        background-color: white;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        width: 30%;
+      }
+      .statistic h2 {
+        font-size: 2rem;
+        color: #ff6f61;
+        margin: 0;
+      }
+      .statistic p {
+        font-size: 1rem;
+        margin: 10px 0 0;
+      }
+      footer {
+        text-align: center;
+        padding: 20px;
+        background-color: #333;
+        color: white;
+        margin-top: 40px;
       }
     </style>
   </head>
   <body>
-    <div class="game-container">
-      <h1 class="animate__animated animate__bounce">🎲 Tebak Angka Seru 🎲</h1>
-      <p>Tantang dirimu! Tebak angka tersembunyi secepat mungkin!</p>
-
-      <div id="difficultySelection">
-        <button class="btn difficulty-btn" id="easyBtn">Mudah (1-50)</button>
-        <button class="btn difficulty-btn" id="mediumBtn">
-          Sedang (1-100)
-        </button>
-        <button class="btn difficulty-btn" id="hardBtn">Sulit (1-500)</button>
-      </div>
-
-      <div id="gameArea" style="display: none">
-        <input type="number" id="guessInput" placeholder="Masukkan angka" />
-        <button class="btn" id="submitBtn">Tebak</button>
-        <div id="feedback" class="message animate__animated"></div>
-        <div id="score" class="score"></div>
-        <div id="timer" class="message"></div>
-        <div id="highScore"></div>
-        <button class="btn" id="resetBtn" style="display: none">
-          Main Lagi
-        </button>
-      </div>
+    <header>
+      <h1>Global Boiling</h1>
+      <p>Bersama Kita Hadapi Perubahan Iklim</p>
+    </header>
+    <nav>
+      <a href="#mission">Misi & Visi</a>
+      <a href="#donations">Donasi</a>
+      <a href="#impact">Dampak</a>
+    </nav>
+    <div class="container">
+      <section class="hero">
+        <h1>Selamat Datang di Global Boiling</h1>
+        <p>
+          Mari bergabung dalam gerakan menyelamatkan lingkungan dan membantu
+          mereka yang membutuhkan.
+        </p>
+        <div class="buttons">
+          <a href="#donate-food">Donasi Makanan</a>
+          <a href="#donate-money">Donasi Uang</a>
+          <a href="#donate-location">Donasi Lokasi</a>
+        </div>
+      </section>
+      <section class="statistics">
+        <div class="statistic">
+          <h2>5.000+</h2>
+          <p>Makanan Didonasikan</p>
+        </div>
+        <div class="statistic">
+          <h2>2.500+</h2>
+          <p>Penerima Manfaat</p>
+        </div>
+        <div class="statistic">
+          <h2>10.000+ Kg</h2>
+          <p>Sampah Berkurang</p>
+        </div>
+      </section>
     </div>
-
-    <script>
-      let targetNumber;
-      let maxNumber;
-      let score = 0;
-      let attempts = 0;
-      let timeLimit;
-      let timer;
-      let isGameOver = false;
-      let highScore = localStorage.getItem("numberGuessHighScore") || 0;
-
-      const difficultyButtons = [
-        { btn: "easyBtn", max: 50, time: 60 },
-        { btn: "mediumBtn", max: 100, time: 60 },
-        { btn: "hardBtn", max: 500, time: 60 },
-      ];
-
-      difficultyButtons.forEach((difficulty) => {
-        document
-          .getElementById(difficulty.btn)
-          .addEventListener("click", () =>
-            startGame(difficulty.max, difficulty.time)
-          );
-      });
-
-      function startGame(max, time) {
-        maxNumber = max;
-        timeLimit = time;
-        attempts = 0;
-        isGameOver = false;
-        targetNumber = Math.floor(Math.random() * max) + 1;
-
-        document.getElementById("difficultySelection").style.display = "none";
-        document.getElementById("gameArea").style.display = "block";
-        document.getElementById("feedback").textContent = "";
-        document.getElementById("submitBtn").disabled = false;
-        document.getElementById("guessInput").disabled = false;
-        document.getElementById("guessInput").value = "";
-        document.getElementById("resetBtn").style.display = "none";
-
-        score = 0;
-        document.getElementById("score").textContent = `Skor: ${score}`;
-        document.getElementById("timer").textContent = `Waktu: ${timeLimit}s`;
-        document.getElementById(
-          "highScore"
-        ).textContent = `Skor Tertinggi: ${highScore}`;
-
-        startTimer();
-      }
-
-      function startTimer() {
-        clearInterval(timer);
-        timer = setInterval(() => {
-          timeLimit--;
-          document.getElementById("timer").textContent = `Waktu: ${timeLimit}s`;
-          if (timeLimit <= 0) {
-            endGame();
-          }
-        }, 1000);
-      }
-
-      document.getElementById("submitBtn").addEventListener("click", () => {
-        if (isGameOver) return;
-
-        const userGuess = parseInt(document.getElementById("guessInput").value);
-        const feedbackEl = document.getElementById("feedback");
-
-        if (isNaN(userGuess) || userGuess < 1 || userGuess > maxNumber) {
-          feedbackEl.textContent = `Masukkan angka antara 1 dan ${maxNumber}!`;
-          feedbackEl.classList.add("animate__shakeX");
-          setTimeout(
-            () => feedbackEl.classList.remove("animate__shakeX"),
-            1000
-          );
-          return;
-        }
-
-        attempts++;
-        if (userGuess === targetNumber) {
-          score += 10 + timeLimit * 2;
-          if (score > highScore) {
-            highScore = score;
-            localStorage.setItem("numberGuessHighScore", highScore);
-          }
-          feedbackEl.textContent = `🎉 Selamat! Tebakanmu benar! 🎉`;
-          feedbackEl.classList.add("animate__tada");
-          document.getElementById("score").textContent = `Skor: ${score}`;
-          endGame();
-        } else if (userGuess < targetNumber) {
-          feedbackEl.textContent = `📈 Tebakanmu terlalu rendah. Coba lagi!`;
-          feedbackEl.classList.remove("animate__tada");
-          feedbackEl.classList.add("animate__shakeX");
-          setTimeout(
-            () => feedbackEl.classList.remove("animate__shakeX"),
-            1000
-          );
-        } else {
-          feedbackEl.textContent = `📉 Tebakanmu terlalu tinggi. Coba lagi!`;
-          feedbackEl.classList.remove("animate__tada");
-          feedbackEl.classList.add("animate__shakeX");
-          setTimeout(
-            () => feedbackEl.classList.remove("animate__shakeX"),
-            1000
-          );
-        }
-      });
-
-      document.getElementById("resetBtn").addEventListener("click", () => {
-        document.getElementById("difficultySelection").style.display = "block";
-        document.getElementById("gameArea").style.display = "none";
-      });
-
-      function endGame() {
-        clearInterval(timer);
-        isGameOver = true;
-        const feedbackEl = document.getElementById("feedback");
-        feedbackEl.textContent += ` Game Over! Angka yang benar adalah ${targetNumber}.`;
-        document.getElementById("submitBtn").disabled = true;
-        document.getElementById("guessInput").disabled = true;
-        document.getElementById(
-          "highScore"
-        ).textContent = `Skor Tertinggi: ${highScore}`;
-        document.getElementById("resetBtn").style.display = "inline-block";
-      }
-    </script>
+    <footer>
+      <p>&copy; 2024 Global Boiling. Semua Hak Dilindungi.</p>
+    </footer>
   </body>
 </html>

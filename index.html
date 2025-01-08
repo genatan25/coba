@@ -3,118 +3,436 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Global Boiling - Homepage</title>
+    <title>SoliInfo - Dashboard Informasi Lokasi</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
     <style>
-      body {
-        font-family: Arial, sans-serif;
+      * {
         margin: 0;
         padding: 0;
-        background: #f4f4f9;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
       }
 
-      header {
-        background: linear-gradient(90deg, #36d1dc, #5b86e5);
-        color: #fff;
+      :root {
+        --primary-green: #00c853;
+        --light-green: #e8f5e9;
+        --sidebar-width: 260px;
+      }
+
+      body {
+        background-color: #f0f2f5;
+      }
+
+      /* Sidebar Styles */
+      .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: var(--sidebar-width);
+        height: 100vh;
+        background: var(--primary-green);
+        color: white;
+        overflow-y: auto;
+      }
+
+      .logo-container {
         padding: 20px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        background: #00b84d;
+      }
+
+      .logo-container img {
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
+      }
+
+      .logo-container span {
+        font-size: 1.5em;
+        font-weight: bold;
+        color: white;
+      }
+
+      .menu-section {
+        padding: 20px;
+      }
+
+      .menu-title {
+        font-size: 0.8em;
+        text-transform: uppercase;
+        opacity: 0.8;
+        margin-bottom: 15px;
+        color: white;
+      }
+
+      .menu-items {
+        list-style: none;
+      }
+
+      .menu-items li {
+        margin-bottom: 5px;
+      }
+
+      .menu-items a {
+        display: flex;
+        align-items: center;
+        padding: 12px 15px;
+        text-decoration: none;
+        color: white;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+      }
+
+      .menu-items a:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .menu-items a.active {
+        background: white;
+        color: var(--primary-green);
+      }
+
+      .menu-items i {
+        margin-right: 10px;
+        width: 20px;
         text-align: center;
       }
 
-      .hero {
-        text-align: center;
-        padding: 50px 20px;
-        background: #e8f8f5;
+      /* Main Content */
+      .main-content {
+        margin-left: var(--sidebar-width);
+        padding: 30px;
       }
 
-      .hero h1 {
-        font-size: 2.5em;
+      .header {
+        margin-bottom: 30px;
+      }
+
+      .header h1 {
+        font-size: 24px;
+        color: #333;
+        margin-bottom: 10px;
+      }
+
+      .header p {
+        color: #666;
+      }
+
+      /* Stats Grid */
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+      }
+
+      .stat-card {
+        background: white;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease;
+      }
+
+      .stat-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .stat-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
         margin-bottom: 20px;
       }
 
-      .hero p {
-        font-size: 1.2em;
-        color: #555;
+      .stat-title {
+        font-size: 1.1em;
+        color: #666;
       }
 
-      .buttons {
+      .stat-icon {
+        width: 40px;
+        height: 40px;
+        background: var(--light-green);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary-green);
+      }
+
+      .stat-value {
+        font-size: 2.5em;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 10px;
+      }
+
+      .stat-description {
+        color: #666;
+        font-size: 0.9em;
+      }
+
+      .btn-selengkapnya {
+        display: inline-block;
+        margin-top: 15px;
+        padding: 8px 16px;
+        background: var(--primary-green);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        text-decoration: none;
+        font-size: 0.9em;
+        transition: background 0.3s ease;
+      }
+
+      .btn-selengkapnya:hover {
+        background: #00b84d;
+      }
+
+      /* Location Table */
+      .location-table {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
         margin-top: 30px;
       }
 
-      .button {
-        display: inline-block;
-        background: linear-gradient(90deg, #ff7e5f, #feb47b);
-        color: white;
-        text-decoration: none;
-        padding: 15px 30px;
-        border-radius: 5px;
-        margin: 10px;
-        font-size: 1em;
-      }
-
-      .stats {
+      .table-header {
+        padding: 20px;
+        border-bottom: 1px solid #eee;
         display: flex;
-        justify-content: space-around;
-        padding: 50px 20px;
-        background: #fff;
+        justify-content: space-between;
+        align-items: center;
       }
 
-      .stat {
-        text-align: center;
-      }
-
-      .stat .number {
-        font-size: 3em;
-        color: #36d1dc;
-      }
-
-      .stat .label {
+      .table-title {
         font-size: 1.2em;
         color: #333;
       }
 
-      footer {
-        text-align: center;
-        padding: 20px;
-        background: #333;
-        color: white;
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid #eee;
+      }
+
+      th {
+        background-color: #f8f9fa;
+        font-weight: 600;
+        color: #666;
+      }
+
+      td {
+        color: #333;
+      }
+
+      .status-badge {
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 0.85em;
+      }
+
+      .status-pending {
+        background: #fff3e0;
+        color: #e65100;
+      }
+
+      .status-verified {
+        background: #e8f5e9;
+        color: #2e7d32;
+      }
+
+      @media (max-width: 768px) {
+        .sidebar {
+          width: 70px;
+        }
+
+        .logo-container span,
+        .menu-title,
+        .menu-items span {
+          display: none;
+        }
+
+        .main-content {
+          margin-left: 70px;
+          padding: 20px;
+        }
+
+        .stats-grid {
+          grid-template-columns: 1fr;
+        }
       }
     </style>
   </head>
   <body>
-    <header>
-      <h1>Global Boiling</h1>
-      <p>Our mission: Fighting hunger and protecting the planet.</p>
-    </header>
+    <div class="sidebar">
+      <div class="logo-container">
+        <img src="/api/placeholder/40/40" alt="SoliInfo Logo" />
+        <span>SoliInfo</span>
+      </div>
 
-    <section class="hero">
-      <h1>Welcome to Global Boiling</h1>
-      <p>
-        Join us in making a difference. Together, we can fight hunger and combat
-        climate change.
-      </p>
-      <div class="buttons">
-        <a href="#" class="button">Donate Food</a>
-        <a href="#" class="button">Donate Money</a>
-        <a href="#" class="button">Donate Location</a>
+      <div class="menu-section">
+        <div class="menu-title">Menu Utama</div>
+        <ul class="menu-items">
+          <li>
+            <a href="#" class="active">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>Dashboard Info Lokasi</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="fas fa-utensils"></i>
+              <span>Dashboard Makanan</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="fas fa-dollar-sign"></i>
+              <span>Dashboard Uang</span>
+            </a>
+          </li>
+        </ul>
       </div>
-    </section>
 
-    <section class="stats">
-      <div class="stat">
-        <div class="number">10,245</div>
-        <div class="label">Meals Donated</div>
+      <div class="menu-section">
+        <div class="menu-title">Sub Menu</div>
+        <ul class="menu-items">
+          <li>
+            <a href="#">
+              <i class="fas fa-comments"></i>
+              <span>Feedback Pengguna</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="fas fa-cog"></i>
+              <span>Settings</span>
+            </a>
+          </li>
+        </ul>
       </div>
-      <div class="stat">
-        <div class="number">4,302</div>
-        <div class="label">People Helped</div>
-      </div>
-      <div class="stat">
-        <div class="number">15 Tons</div>
-        <div class="label">CO2 Saved</div>
-      </div>
-    </section>
+    </div>
 
-    <footer>
-      <p>&copy; 2024 Global Boiling. All rights reserved.</p>
-    </footer>
+    <div class="main-content">
+      <div class="header">
+        <h1>Dashboard Informasi Lokasi</h1>
+        <p>Kelola informasi lokasi donasi dan verifikasi</p>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-header">
+            <div class="stat-title">Jumlah Informasi Lokasi</div>
+            <div class="stat-icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+          </div>
+          <div class="stat-value">50</div>
+          <div class="stat-description">Total lokasi terdaftar</div>
+          <button class="btn-selengkapnya">Selengkapnya</button>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-header">
+            <div class="stat-title">Menunggu Verifikasi</div>
+            <div class="stat-icon">
+              <i class="fas fa-clock"></i>
+            </div>
+          </div>
+          <div class="stat-value">12</div>
+          <div class="stat-description">Lokasi perlu diverifikasi</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-header">
+            <div class="stat-title">Terverifikasi</div>
+            <div class="stat-icon">
+              <i class="fas fa-check-circle"></i>
+            </div>
+          </div>
+          <div class="stat-value">38</div>
+          <div class="stat-description">Lokasi telah diverifikasi</div>
+        </div>
+      </div>
+
+      <div class="location-table">
+        <div class="table-header">
+          <div class="table-title">Daftar Informasi Lokasi Terbaru</div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Alamat Lokasi</th>
+              <th>Deskripsi Kebutuhan</th>
+              <th>Tanggal</th>
+              <th>Bukti</th>
+              <th>Status</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Jl. Merdeka No. 123, Jakarta</td>
+              <td>Bantuan makanan untuk 50 KK</td>
+              <td>8 Jan 2025</td>
+              <td>3 Foto</td>
+              <td><span class="status-badge status-pending">Menunggu</span></td>
+              <td>
+                <i
+                  class="fas fa-eye"
+                  style="margin-right: 10px; cursor: pointer; color: #666"
+                ></i>
+                <i
+                  class="fas fa-edit"
+                  style="margin-right: 10px; cursor: pointer; color: #666"
+                ></i>
+                <i
+                  class="fas fa-check-circle"
+                  style="cursor: pointer; color: var(--primary-green)"
+                ></i>
+              </td>
+            </tr>
+            <tr>
+              <td>Jl. Sudirman No. 45, Bandung</td>
+              <td>Bantuan medis untuk lansia</td>
+              <td>7 Jan 2025</td>
+              <td>2 Foto, 1 Video</td>
+              <td>
+                <span class="status-badge status-verified">Terverifikasi</span>
+              </td>
+              <td>
+                <i
+                  class="fas fa-eye"
+                  style="margin-right: 10px; cursor: pointer; color: #666"
+                ></i>
+                <i
+                  class="fas fa-edit"
+                  style="margin-right: 10px; cursor: pointer; color: #666"
+                ></i>
+                <i
+                  class="fas fa-check-circle"
+                  style="cursor: pointer; color: var(--primary-green)"
+                ></i>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </body>
 </html>

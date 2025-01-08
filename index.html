@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SoliInfo - Dashboard Informasi Lokasi</title>
+    <title>SoliInfo - Dashboard Donasi Uang</title>
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
       rel="stylesheet"
@@ -276,6 +276,25 @@
           grid-template-columns: 1fr;
         }
       }
+
+      .stat-card .stat-value.currency {
+        font-size: 2em;
+      }
+
+      .donation-amount {
+        color: var(--primary-green);
+        font-weight: 600;
+      }
+
+      .payment-method {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .payment-method i {
+        color: #666;
+      }
     </style>
   </head>
   <body>
@@ -289,7 +308,7 @@
         <div class="menu-title">Menu Utama</div>
         <ul class="menu-items">
           <li>
-            <a href="#" class="active">
+            <a href="#">
               <i class="fas fa-map-marker-alt"></i>
               <span>Dashboard Info Lokasi</span>
             </a>
@@ -301,7 +320,7 @@
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="#" class="active">
               <i class="fas fa-dollar-sign"></i>
               <span>Dashboard Uang</span>
             </a>
@@ -330,20 +349,20 @@
 
     <div class="main-content">
       <div class="header">
-        <h1>Dashboard Informasi Lokasi</h1>
-        <p>Kelola informasi lokasi donasi dan verifikasi</p>
+        <h1>Dashboard Donasi Uang</h1>
+        <p>Kelola informasi donasi uang dan verifikasi pembayaran</p>
       </div>
 
       <div class="stats-grid">
         <div class="stat-card">
           <div class="stat-header">
-            <div class="stat-title">Jumlah Informasi Lokasi</div>
+            <div class="stat-title">Jumlah Donasi</div>
             <div class="stat-icon">
-              <i class="fas fa-map-marker-alt"></i>
+              <i class="fas fa-hand-holding-dollar"></i>
             </div>
           </div>
           <div class="stat-value">50</div>
-          <div class="stat-description">Total lokasi terdaftar</div>
+          <div class="stat-description">Total donasi masuk</div>
           <button class="btn-selengkapnya">Selengkapnya</button>
         </div>
 
@@ -355,7 +374,7 @@
             </div>
           </div>
           <div class="stat-value">12</div>
-          <div class="stat-description">Lokasi perlu diverifikasi</div>
+          <div class="stat-description">Donasi perlu diverifikasi</div>
         </div>
 
         <div class="stat-card">
@@ -366,19 +385,20 @@
             </div>
           </div>
           <div class="stat-value">38</div>
-          <div class="stat-description">Lokasi telah diverifikasi</div>
+          <div class="stat-description">Donasi telah diverifikasi</div>
         </div>
       </div>
 
       <div class="location-table">
         <div class="table-header">
-          <div class="table-title">Daftar Informasi Lokasi Terbaru</div>
+          <div class="table-title">Daftar Donasi Terbaru</div>
         </div>
         <table>
           <thead>
             <tr>
-              <th>Alamat Lokasi</th>
-              <th>Deskripsi Kebutuhan</th>
+              <th>Nama Donatur</th>
+              <th>Nominal Donasi</th>
+              <th>Metode Pembayaran</th>
               <th>Tanggal</th>
               <th>Bukti</th>
               <th>Status</th>
@@ -387,10 +407,16 @@
           </thead>
           <tbody>
             <tr>
-              <td>Jl. Merdeka No. 123, Jakarta</td>
-              <td>Bantuan makanan untuk 50 KK</td>
+              <td>Ahmad Donor</td>
+              <td class="donation-amount">Rp 500.000</td>
+              <td>
+                <div class="payment-method">
+                  <i class="fas fa-university"></i>
+                  Transfer BCA
+                </div>
+              </td>
               <td>8 Jan 2025</td>
-              <td>3 Foto</td>
+              <td>2 Files</td>
               <td><span class="status-badge status-pending">Menunggu</span></td>
               <td>
                 <i
@@ -408,10 +434,16 @@
               </td>
             </tr>
             <tr>
-              <td>Jl. Sudirman No. 45, Bandung</td>
-              <td>Bantuan medis untuk lansia</td>
+              <td>Budi Dermawan</td>
+              <td class="donation-amount">Rp 1.000.000</td>
+              <td>
+                <div class="payment-method">
+                  <i class="fas fa-wallet"></i>
+                  DANA
+                </div>
+              </td>
               <td>7 Jan 2025</td>
-              <td>2 Foto, 1 Video</td>
+              <td>1 File</td>
               <td>
                 <span class="status-badge status-verified">Terverifikasi</span>
               </td>
